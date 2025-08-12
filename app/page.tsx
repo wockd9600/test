@@ -1,6 +1,29 @@
 import Image from "next/image";
 
 export default function Home() {
+  const address = "대전 동구 광명길 64";
+  const handleNaverMapClick = () => {
+    if (!address) return;
+    // window.open(`https://map.naver.com/p/search/${encodeURIComponent(address)}`, '_blank');
+    // const url = `https://map.naver.com/p/directions/,,/${encodeURIComponent(address)},,/-/car`;
+    const url = `https://map.naver.com/p/directions/-/${encodeURIComponent(address)}/-/car`;
+    window.open(url, '_blank');
+  };
+
+  const handleKakaoMapClick = () => {
+    if (!address) return;
+    // window.open(`https://map.kakao.com/link/search/${encodeURIComponent(address)}`, '_blank');
+    const url = `https://map.kakao.com/link/route?ep=${encodeURIComponent(address)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleTmapClick = () => {
+    if (!address) return;
+    // TMAP API 키는 예시이며, 실제 유효한 키를 사용해야 합니다.
+    const tmapAppKey = "l7xx7d40a2102da948ae88c2a350e81a3428";
+    window.open(`https://apis.openapi.sk.com/tmap/app/routes?appKey=${tmapAppKey}&name=${encodeURIComponent(address)}&goalname=${encodeURIComponent(address)}`, '_blank');
+  };
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
