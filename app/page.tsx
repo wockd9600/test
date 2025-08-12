@@ -8,12 +8,12 @@ export default function Home() {
   };
   const handleNaverMapClick2 = () => {
     if (!address) return;
-    const url = `https://map.naver.com/p/directions/,,/${encodeURIComponent(address)},,/-/car`;
+    const url = `https://map.naver.com/p/directions/14145818.539039,4514955.7706404,/14148473.5088944,4493577.2512047,/-/car?c=11.00,0,0,0,dh`;
     window.open(url, '_blank');
   };
   const handleNaverMapClick3 = () => {
     if (!address) return;
-    const url = `https://map.naver.com/p/directions/-/${encodeURIComponent(address)}/-/car`;
+    const url = `https://map.naver.com/p/directions/,,/14148473.5088944,4493577.2512047,/-/car?c=11.00,0,0,0,dh`;
     window.open(url, '_blank');
   };
 
