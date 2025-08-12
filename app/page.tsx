@@ -26,6 +26,30 @@ export default function Home() {
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <div className="flex justify-center space-x-2 mt-4">
+        <button
+          onClick={handleNaverMapClick}
+          className="bg-[#03C75A] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
+          style={{ minWidth: '100px' }}
+        >
+          네이버 지도
+        </button>
+        <button
+          onClick={handleKakaoMapClick}
+          className="bg-[#FEE500] text-black px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
+          style={{ minWidth: '100px' }}
+        >
+          카카오 지도
+        </button>
+        <button
+          onClick={handleTmapClick}
+          className="bg-[#ED1C24] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
+          style={{ minWidth: '100px' }}
+        >
+          T맵
+        </button>
+      </div>
+
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
