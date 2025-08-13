@@ -6,32 +6,12 @@ export default function Home() {
     if (!address) return;
     window.open(`https://map.naver.com/p/search/${encodeURIComponent(address)}`, '_blank');
   };
-  const handleNaverMapClick2 = () => {
-    if (!address) return;
-    const url = `https://map.naver.com/p/directions/14145818.539039,4514955.7706404,/14148473.5088944,4493577.2512047,/-/car?c=11.00,0,0,0,dh`;
-    window.open(url, '_blank');
-  };
-  const handleNaverMapClick3 = () => {
-    if (!address) return;
-    const url = `https://map.naver.com/p/directions/,,/14148473.5088944,4493577.2512047,/-/car?c=11.00,0,0,0,dh`;
-    window.open(url, '_blank');
-  };
-
   const handleKakaoMapClick1 = () => {
     if (!address) return;
-    window.open(`https://map.kakao.com/link/search/${encodeURIComponent(address)}`, '_blank');
+    const coords = {lat: 35.0604944, lng: 126.796407}
+    window.open(`http://m.map.kakao.com/scheme/look?p=${coords?.lat},${coords?.lng}`, '_blank');
     // const url = `https://map.kakao.com/link/route?ep=${encodeURIComponent(address)}`;
     // window.open(url, '_blank');
-  };
-  const handleKakaoMapClick2 = () => {
-    if (!address) return;
-    const url = `https://map.kakao.com/link/route?ep=${encodeURIComponent(address)}`;
-    window.open(url, '_blank');
-  };
-  const handleKakaoMapClick3 = () => {
-    if (!address) return;
-    const url = `https://map.kakao.com/?map_type=TYPE_MAP&target=car&rt2=${encodeURIComponent(address)}`;
-    window.open(url, '_blank');
   };
 
   const handleTmapClick = () => {
@@ -51,20 +31,7 @@ export default function Home() {
         >
           네이버 지도1
         </button>
-        <button
-          onClick={handleNaverMapClick2}
-          className="bg-[#03C75A] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
-          style={{ minWidth: '100px' }}
-        >
-          네이버 지도2
-        </button>
-        <button
-          onClick={handleNaverMapClick3}
-          className="bg-[#03C75A] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
-          style={{ minWidth: '100px' }}
-        >
-          네이버 지도3
-        </button>
+        
         <button
           onClick={handleKakaoMapClick1}
           className="bg-[#FEE500] text-black px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
@@ -72,20 +39,7 @@ export default function Home() {
         >
           카카오 지도1
         </button>
-        <button
-          onClick={handleKakaoMapClick2}
-          className="bg-[#FEE500] text-black px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
-          style={{ minWidth: '100px' }}
-        >
-          카카오 지도2
-        </button>
-        <button
-          onClick={handleKakaoMapClick3}
-          className="bg-[#FEE500] text-black px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
-          style={{ minWidth: '100px' }}
-        >
-          카카오 지도3
-        </button>
+        
         <button
           onClick={handleTmapClick}
           className="bg-[#ED1C24] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
