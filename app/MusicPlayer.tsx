@@ -21,7 +21,6 @@ export function MusicPlayer() {
         if (!audio) return;
 
         // 음소거 상태로 자동 재생 시도
-        // audio.muted = true;
         const playPromise = audio.play();
 
         if (playPromise !== undefined) {
