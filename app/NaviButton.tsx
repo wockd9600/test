@@ -9,24 +9,9 @@ export function NaviButton() {
 
     const handleTmapClick2 = () => {
         const goalname = encodeURIComponent("서울시청");
-        const lat = 126.9780;
-        const lng = 37.5665;
+        const lat = 37.5665;
+        const lng = 126.9780;
 
-        // 앱 실행용 스킴 (Android + iOS Tmap 설치되어 있는 경우)
-        // const tmapScheme = `tmap://route?goalname=${goalname}&lon=${lng}&lat=${lat}`;
-
-        // // Android fallback용 intent
-        // const androidIntent = `intent://route?goalname=${goalname}&lon=${lng}&lat=${lat}#Intent;scheme=tmap;package=com.sktelecom.tmap.ku;end`;
-
-        // // 우선 스킴으로 실행하고, 실패 시 fallback
-        // const userAgent = navigator.userAgent.toLowerCase();
-        // if (userAgent.includes('android')) {
-        //     location.href = androidIntent;
-        // } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
-        //     location.href = tmapScheme;
-        // } else {
-        //     alert('Tmap은 모바일에서만 실행 가능합니다.');
-        // }
         const TMAP_IOS_APPSTORE_URL = 'https://apps.apple.com/kr/app/tmap-t-maeb-daehanmingug-daepyo-naebigeisyeon/id431589174';
         const TMAP_ANDROID_PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap';
 
