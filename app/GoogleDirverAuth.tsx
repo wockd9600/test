@@ -8,6 +8,8 @@ export function GoogleDriverAuth() {
     useEffect(() => {
         function handleMessage(event: MessageEvent) {
             // 보안: 우리 도메인인지 확인
+
+            //dasf
             if (event.origin !== window.location.origin) return;
 
             const data = event.data;
