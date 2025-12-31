@@ -1,19 +1,24 @@
 "use client";
 
 export function NaviButton() {
-    const handleTmapClick = () => {
-        window.location.href = "tmap://route?goalname=서울시청&lon=126.9780&lat=37.5665";
+    const handleTmapClick1 = () => {
+        handleTmapClick({TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap'});
+        // window.location.href = "tmap://route?goalname=서울시청&lon=126.9780&lat=37.5665";
         // const tmapAppKey = "l7xx7d40a2102da948ae88c2a350e81a3428";
         // window.open(`https://apis.openapi.sk.com/tmap/app/routes?appKey=${tmapAppKey}&name=${encodeURIComponent(name || address)}&goalname=${encodeURIComponent(address)}`, '_blank');
     };
 
     const handleTmapClick2 = () => {
-        const goalname = encodeURIComponent("서울시청");
-        const lat = 37.5665;
-        const lng = 126.9780;
+        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku'});
+    }
+
+    const handleTmapClick = ({ goalname = "서울시청", lat = 37.5665, lng = 126.9780, TMAP_ANDROID_PLAYSTORE_URL = "" }) => {
+        // const goalname = encodeURIComponent("서울시청");
+        // const lat = 37.5665;
+        // const lng = 126.9780;
 
         const TMAP_IOS_APPSTORE_URL = 'https://apps.apple.com/kr/app/tmap-t-maeb-daehanmingug-daepyo-naebigeisyeon/id431589174';
-        const TMAP_ANDROID_PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap';
+        // const TMAP_ANDROID_PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap';
 
 
         const userAgent = navigator.userAgent.toLowerCase();
@@ -54,7 +59,7 @@ export function NaviButton() {
     return (
         <>
             <button
-                onClick={handleTmapClick}
+                onClick={handleTmapClick1}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
                 Tmap 길찾기
