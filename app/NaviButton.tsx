@@ -2,14 +2,14 @@
 
 export function NaviButton() {
     const handleTmapClick1 = () => {
-        handleTmapClick({TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap'});
+        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap' });
         // window.location.href = "tmap://route?goalname=서울시청&lon=126.9780&lat=37.5665";
         // const tmapAppKey = "l7xx7d40a2102da948ae88c2a350e81a3428";
         // window.open(`https://apis.openapi.sk.com/tmap/app/routes?appKey=${tmapAppKey}&name=${encodeURIComponent(name || address)}&goalname=${encodeURIComponent(address)}`, '_blank');
     };
 
     const handleTmapClick2 = () => {
-        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku'});
+        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku' });
     }
 
     const handleTmapClick = ({ goalname = "서울시청", lat = 37.5665, lng = 126.9780, TMAP_ANDROID_PLAYSTORE_URL = "" }) => {
@@ -24,6 +24,18 @@ export function NaviButton() {
         const userAgent = navigator.userAgent.toLowerCase();
 
         if (userAgent.includes('android')) {
+            const timer = window.setTimeout(() => {
+                window.location.href = TMAP_ANDROID_PLAYSTORE_URL;
+            }, 1200);
+
+            document.addEventListener(
+                "visibilitychange",
+                () => {
+                    if (document.visibilityState === "hidden") clearTimeout(timer);
+                },
+                { once: true }
+            );
+            
             // 안드로이드는 인텐트에 fallback_url을 내장하여 처리합니다.
             // 앱이 없으면 browser_fallback_url로 지정된 플레이 스토어로 자동 이동합니다.
             const androidIntent = `intent://route?goalname=${goalname}&goalx=${lng}&goaly=${lat}#Intent;scheme=tmap;package=com.sktelecom.tmap;S.browser_fallback_url=${encodeURIComponent(TMAP_ANDROID_PLAYSTORE_URL)};end;`;
