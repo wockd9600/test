@@ -1,66 +1,49 @@
 "use client";
 
 export function NaviButton() {
-    const handleTmapClick1 = () => {
-        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap' });
-        // window.location.href = "tmap://route?goalname=서울시청&lon=126.9780&lat=37.5665";
-        // const tmapAppKey = "l7xx7d40a2102da948ae88c2a350e81a3428";
-        // window.open(`https://apis.openapi.sk.com/tmap/app/routes?appKey=${tmapAppKey}&name=${encodeURIComponent(name || address)}&goalname=${encodeURIComponent(address)}`, '_blank');
-    };
-
     const handleTmapClick2 = () => {
-        handleTmapClick({ TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku' });
+        // 플레이스토어 URL의 id값(com.skt.tmap.ku)이 실제 앱의 패키지명입니다.
+        handleTmapClick({ 
+            TMAP_ANDROID_PLAYSTORE_URL: 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku' 
+        });
     }
 
-    const handleTmapClick = ({ goalname = "서울시청", lat = 37.5665, lng = 126.9780, TMAP_ANDROID_PLAYSTORE_URL = "" }) => {
-        // const goalname = encodeURIComponent("서울시청");
-        // const lat = 37.5665;
-        // const lng = 126.9780;
-
+    const handleTmapClick = ({ 
+        goalname = "서울시청", 
+        lat = 37.5665, 
+        lng = 126.9780, 
+        TMAP_ANDROID_PLAYSTORE_URL = "" 
+    }) => {
         const TMAP_IOS_APPSTORE_URL = 'https://apps.apple.com/kr/app/tmap-t-maeb-daehanmingug-daepyo-naebigeisyeon/id431589174';
-        // const TMAP_ANDROID_PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.sktelecom.tmap';
-
 
         const userAgent = navigator.userAgent.toLowerCase();
 
         if (userAgent.includes('android')) {
-            const timer = window.setTimeout(() => {
-                window.location.href = TMAP_ANDROID_PLAYSTORE_URL;
-            }, 1200);
+            // [수정 1] 안드로이드는 setTimeout을 제거해야 합니다.
+            // Intent 스키마 자체적으로 앱이 없으면 fallback_url로 이동하는 기능이 내장되어 있습니다.
+            // 타이머를 쓰면 앱이 켜지는 중에 강제로 마켓으로 이동될 수 있습니다.
 
-            document.addEventListener(
-                "visibilitychange",
-                () => {
-                    if (document.visibilityState === "hidden") clearTimeout(timer);
-                },
-                { once: true }
-            );
+            // [수정 2] 패키지명을 com.sktelecom.tmap -> com.skt.tmap.ku 로 변경
+            // goalname은 한글 깨짐 방지를 위해 encodeURIComponent 필수
+            const androidIntent = `intent://route?goalname=${encodeURIComponent(goalname)}&goalx=${lng}&goaly=${lat}#Intent;scheme=tmap;package=com.skt.tmap.ku;S.browser_fallback_url=${encodeURIComponent(TMAP_ANDROID_PLAYSTORE_URL)};end;`;
             
-            // 안드로이드는 인텐트에 fallback_url을 내장하여 처리합니다.
-            // 앱이 없으면 browser_fallback_url로 지정된 플레이 스토어로 자동 이동합니다.
-            const androidIntent = `intent://route?goalname=${goalname}&goalx=${lng}&goaly=${lat}#Intent;scheme=tmap;package=com.sktelecom.tmap;S.browser_fallback_url=${encodeURIComponent(TMAP_ANDROID_PLAYSTORE_URL)};end;`;
-            location.href = androidIntent;
+            window.location.href = androidIntent;
 
         } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
-            // iOS는 타이머를 이용한 폴백 방식을 사용합니다.
-            const tmapScheme = `tmap://route?goalname=${goalname}&goalx=${lng}&goaly=${lat}`;
+            // iOS는 기존 로직 유지 (iOS는 intent 스키마가 없어서 타이머 방식이 필요함)
+            const tmapScheme = `tmap://route?goalname=${encodeURIComponent(goalname)}&goalx=${lng}&goaly=${lat}`;
             const appStoreUrl = TMAP_IOS_APPSTORE_URL;
 
-            // 1초 후에 앱 스토어로 보내는 타이머를 설정합니다.
-            // 만약 티맵 앱이 실행되면 현재 웹페이지는 백그라운드로 전환되므로, 아래 코드는 사실상 실행되지 않습니다.
             const timer = setTimeout(() => {
                 window.location.href = appStoreUrl;
             }, 1000);
 
-            // visibilitychange 이벤트를 사용하여 페이지가 숨겨지면(앱으로 전환되면) 타이머를 제거합니다.
-            // 이는 사용자가 앱 실행 후 다시 브라우저로 돌아왔을 때 스토어로 이동하는 것을 방지합니다.
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'hidden') {
                     clearTimeout(timer);
                 }
             });
 
-            // 우선 앱 실행을 시도합니다.
             window.location.href = tmapScheme;
 
         } else {
@@ -70,12 +53,6 @@ export function NaviButton() {
 
     return (
         <>
-            <button
-                onClick={handleTmapClick1}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-                Tmap 길찾기
-            </button>
             <button
                 onClick={handleTmapClick2}
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
